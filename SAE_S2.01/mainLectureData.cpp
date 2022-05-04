@@ -9,7 +9,6 @@ int main()
 	SAE_Datas_Heat myStations;
 	std::cout << myStations.nbMonths() << "\n";
 	ListeStation lB = myStations.getListeStation();
-	std::cout << moyMois(1, lB); //affiche quelque chose de bizarre
 	return 0;
 }
 

@@ -78,6 +78,3 @@ void affichePlusChaudTrois(ListeStation list)
 	}
 	std::cout << moyA[0] << " " << moyA[1] << " " << moyA[2] << "\n";
 }
-
-
-

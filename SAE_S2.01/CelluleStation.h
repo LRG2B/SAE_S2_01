@@ -14,4 +14,3 @@ struct CelluleStation
 
     CelluleStation(int ID = -1) : _ID{ ID }, _pSuiv{ nullptr }, _pPred{ nullptr } {}
 };
-

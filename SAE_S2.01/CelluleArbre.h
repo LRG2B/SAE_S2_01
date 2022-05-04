@@ -13,4 +13,3 @@ struct CelluleArbre {
 		: _deltaT{ deltaT }, _annee{ an }, _tempMois{ tMoy }, _tSigmaMois{ tSigma }, _pFilsG{ pFilsG }, _pFilsD{ pFilsD } {}
 
 };
-
