@@ -15,14 +15,29 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
     LPTSTR    lpCmdLine,
     int       nCmdShow)
 {
+    SetConsoleCP(CP_UTF8);
+    SetConsoleOutputCP(CP_UTF8);
     UNREFERENCED_PARAMETER(hPrevInstance);
     UNREFERENCED_PARAMETER(lpCmdLine);
 
+    CSize resolution{ 1920, 1080 };
+    CPoint pos_txt{ 0, 0 };
+
+    auto noir = MakeARGB(255, 0, 0, 0);
+    auto blanc = MakeARGB(255, 255, 255, 255);
+    std::string txt_quit = "Appuyer sur la touche Q pour quitter";
+
+    CPoint position_rec{ 100,100 };
+    CSize taille_rec{ 1700, 900 };
+    CRectangle beute{ position_rec, taille_rec };
+
     //Récupération de l'objet principal de LibGraph 2
     ILibGraph2* libgraph = GetLibGraph2();
-    //Affiche la fenêtre graphique avec une taille par défaut
-    libgraph->show();
+    //Affiche la fenêtre graphique avec une taille_rec par défaut
+    libgraph->show(resolution, true);
     evt e;  //Evénement LibGraph 2
+
+    
 
     //Boucle principale d'événements
     while (libgraph->waitForEvent(e))
@@ -32,14 +47,23 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
         case evt_type::evtRefresh:  //Raffraichissement de l'affichage (tout redessiner)
           //Utiliser éventuellement les fonctions libgraph->beginPaint() / libgraph->endPaint() pour activer le backbuffer
             libgraph->beginPaint();
-            //Utiliser ici les fonctions de dessins
+
+            libgraph->setPen(noir, 5.0f, LibGraph2::pen_DashStyles::Solid);
+            libgraph->setSolidBrush(blanc);
+            libgraph->drawRectangle(beute);
+
+            //libgraph->setFont("Consolas" , 20 , font_styles::FontStyleRegular);
+            libgraph->setSolidBrush(noir);
+            libgraph->drawString(txt_quit, pos_txt);
+
             libgraph->endPaint();
             break;
 
         case evt_type::evtKeyDown:  //Enfoncement d'une touche
             switch (e.vkKeyCode) //En fonction de la touche enfoncée
             {
-            case 'A':
+            case 'Q':                
+                exit(0);
                 break;
             }
             break;

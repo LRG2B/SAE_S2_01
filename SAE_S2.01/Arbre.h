@@ -27,5 +27,5 @@ public:
 
 public : 
 	float somme_temp(); //question1
-	CelluleArbre* Arbre::recherche_annee(int annee);
+	CelluleArbre* recherche_annee(int annee);
 };
