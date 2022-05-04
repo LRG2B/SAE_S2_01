@@ -13,25 +13,28 @@ float somme_deltaT(Arbre ab) {
 	}
 }
 
+float sommeTemp(Arbre ab)
+{
+	if (ab.get_rac() == nullptr) return 0;
+	else {
+		Arbre arbregauche(ab.get_rac()->_pFilsG);
+		Arbre arbredroit(ab.get_rac()->_pFilsD);
+
+		return ab.get_rac()->_tempMois + sommeTemp(arbregauche) + sommeTemp(arbredroit);
+	}
+}
+
 float moy_temp_station(Arbre abre) //question 1
 {
 	return abre.somme_temp() / abre.nbelem(); //voir dans Arbre.cpp la fonction somme_temp()
 }
 
-float moyMois(float mois, ListeStation list) //question 1
+float moyTemp(Arbre ab)
 {
-	float moyTot;
-	float moyStation = 0;
-	CelluleStation* cel = list.get_tete();
-	while (cel) //tant que cel n'est pas = nullptr
-	{
-		Arbre arb(cel->tab_arbres[mois - 1]); //def de la cellule arbre de la station pour un mois donne
-		moyStation += moy_temp_station(arb);//somme des moyennes de temp de chaque Station
-	//											//voir dans Arvre.cpp la fonction moy_temp_station()
-		cel = cel->_pSuiv; // passage a la cellule suivante
+	if (ab.get_rac() == nullptr) return 0;
+	else {
+		return sommeTemp(ab) / ab.nbelem();
 	}
-	moyTot = moyStation / list.nbelem(); //calcul de la moyenne
-	return moyTot;
 }
 
 std::array<std::array<std::array<float, 12>, 18>, 30> tabTempMoyMoisStationAnnee(ListeStation list)
