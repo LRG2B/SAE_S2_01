@@ -25,7 +25,7 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 	std::vector<std::string> nameMonth = { "Janvier", "Fevrier", "Mars", "Avril", "Mai", "Juin", "Juillet",
 	"Aout", "Septembre", "Octobre", "Novemebre", "Decembre" };
 
-    auto beeeeeuuuute =  lB.get_temp_annee(2000);
+    
 
     CSize resolution{ 1920, 1080 };
     CPoint pos_txt{ 0, 0 };
@@ -34,11 +34,16 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
     auto noir = MakeARGB(255, 0, 0, 0);
     auto blanc = MakeARGB(255, 255, 255, 255);
 
-    auto inter = 100;
+    const int inter_annee = 58;
+    const int inter_temp = 100;
+
+    float val_temp;
+    int annee = 1992;
 
     CSize taille_point{ 20,20 };
-    CPoint pos_point{ 200, 500 };
-    CRectangle point{ pos_point, taille_point };
+    CPoint pos_point;
+    CRectangle point;
+
 
 	//Récupération de l'objet principal de LibGraph 2
 	ILibGraph2* libgraph = GetLibGraph2();
@@ -49,10 +54,9 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
     //Boucle principale d'événements
     while (libgraph->waitForEvent(e))
     {
-        switch (e.type)  //En fonction du type d'événement
+        switch (e.type)
         {
-        case evt_type::evtRefresh:  //Raffraichissement de l'affichage (tout redessiner)
-          //Utiliser éventuellement les fonctions libgraph->beginPaint() / libgraph->endPaint() pour activer le backbuffer
+        case evt_type::evtRefresh:
             libgraph->beginPaint();
             //------------------------Affichage-du-cadre
             libgraph->setPen(noir, 4.0f, LibGraph2::pen_DashStyles::Solid);
@@ -71,22 +75,27 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
             //------------------------Affichage-des-intervalles
             for (float i = 1; i <= 8; i++)
             {
-                libgraph->drawLine(CPoint{ 90 ,1000 - (inter * i) }, CPoint{ 110, 1000 - (inter * i) });
+                libgraph->drawLine(CPoint{ 90 ,1000 - (inter_temp * i) }, CPoint{ 110, 1000 - (inter_temp * i) });
             }
-            for (float i = 1; i <= 16; i++)
+            for (float i = 1; i <= 29; i++)
             {
-                libgraph->drawLine(CPoint{ 100 + (inter * i), 990 }, CPoint{ 100 + (inter * i), 1010 });
-                //libgraph->drawString(annee, CPoint{100 + (inter * i), 990});
-                //annee += 1;
+                libgraph->drawLine(CPoint{ 100 + (inter_annee * i), 990 }, CPoint{ 100 + (inter_annee * i), 1010 });
+                val_temp = lB.get_temp_annee(annee);
+                pos_point = CPoint{ 100 + (inter_annee * i) , (val_temp*30) };
+                point = CRectangle{ pos_point, taille_point };
+                libgraph->drawEllipse(point);
+                annee++;
             }
 
-            libgraph->drawEllipse(point);
-            //point = { CPoint{300,400}, taille_point };
-            //libgraph->drawEllipse(point);
-            //libgraph->setPen(noir, 2.0f, LibGraph2::pen_DashStyles::Solid);
-            libgraph->drawLine(pos_point, CPoint{ 300,400 });
 
-            //libgraph->drawLine(CPoint{ 90, 1010 }, CPoint{ 110, 990 });
+            //30px / deg
+            //1992 -> 2021
+
+            //libgraph->drawEllipse(point);
+            ////point = { CPoint{300,400}, taille_point };
+            ////libgraph->drawEllipse(point);
+            ////libgraph->setPen(noir, 2.0f, LibGraph2::pen_DashStyles::Solid);
+            //libgraph->drawLine(pos_point, CPoint{ 300,400 });
 
             //Affichage du texte de fermeture
             /*libgraph->setFont("Consolas" , 20 , font_styles::FontStyleRegular);
@@ -96,8 +105,8 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
             libgraph->endPaint();
             break;
 
-        case evt_type::evtKeyDown:  //Enfoncement d'une touche
-            switch (e.vkKeyCode) //En fonction de la touche enfoncée
+        case evt_type::evtKeyDown:
+            switch (e.vkKeyCode)
             {
             case VK_ESCAPE:
                 exit(0);
@@ -105,13 +114,10 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
             }
             break;
 
-        case evt_type::evtMouseMove:  //Déplacement de la souris
-          //Position de la souris dans les variables e.x et e.y
+        case evt_type::evtMouseMove:
             break;
         }
     }
-
-    //Libération de l'objet principal de LibGraph 2
     ReleaseLibGraph2();
     return 0;
 }

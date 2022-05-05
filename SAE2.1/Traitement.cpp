@@ -79,13 +79,13 @@ void displayMoyTempSta(ListeStation& lB, int mois)
 	std::cout << "\x1B[1;32m " << moyStation << "\x1B[0m" << std::endl;
 }
 
-Arbre globalWarning(Arbre ab1, Arbre ab2, Arbre ab3)
-{
-	if (ab1.get_rac() == nullptr || ab2.get_rac() == nullptr || ab3.get_rac() == nullptr) return 0;
-	else {
-		return std::max(std::max(ab1.get_rac(), ab2.get_rac()), ab3.get_rac());
-	}
-}
+//Arbre globalWarning(Arbre ab1, Arbre ab2, Arbre ab3)
+//{
+//	if (ab1.get_rac() == nullptr || ab2.get_rac() == nullptr || ab3.get_rac() == nullptr) return 0;
+//	else {
+//		return std::max(std::max(ab1.get_rac(), ab2.get_rac()), ab3.get_rac());
+//	}
+//}
 
 void displayDelta(Arbre ab)
 {
@@ -97,6 +97,11 @@ void displayDelta(Arbre ab)
 		std::cout << "Annee : " << ab.get_rac()->_annee << " / deltaT : " << ab.get_rac()->_deltaT << "\n";
 		displayDelta(arbredroit);
 	}
+}
+
+Arbre globalWarning(Arbre ab1, Arbre ab2, Arbre ab3)
+{
+	return Arbre();
 }
 
 void displayGlobalWarningSeasons(ListeStation& lB)
