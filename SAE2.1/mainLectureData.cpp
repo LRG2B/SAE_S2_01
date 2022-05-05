@@ -25,20 +25,20 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 	std::vector<std::string> nameMonth = { "Janvier", "Fevrier", "Mars", "Avril", "Mai", "Juin", "Juillet",
 	"Aout", "Septembre", "Octobre", "Novemebre", "Decembre" };
 
-   auto beeeeeuuuute =  lB.get_temp_annee(2000);
+    auto beeeeeuuuute =  lB.get_temp_annee(2000);
 
+    CSize resolution{ 1920, 1080 };
+    CPoint pos_txt{ 0, 0 };
 
-	CSize resolution{ 1920, 1080 };
-	CPoint pos_txt{ 0, 0 };
+    //Définition des couleurs
+    auto noir = MakeARGB(255, 0, 0, 0);
+    auto blanc = MakeARGB(255, 255, 255, 255);
 
-	auto noir = MakeARGB(255, 0, 0, 0);
-	auto blanc = MakeARGB(255, 255, 255, 255);
-	//CStrin		ListeStation::get_temp_annee retourné	12.5083351	float
-g txt_quit = "ytujytytjy";
+    auto inter = 100;
 
-	CPoint position_rec{ 100,100 };
-	CSize taille_rec{ 1700, 900 };
-	CRectangle beute{ position_rec, taille_rec };
+    CSize taille_point{ 20,20 };
+    CPoint pos_point{ 200, 500 };
+    CRectangle point{ pos_point, taille_point };
 
 	//Récupération de l'objet principal de LibGraph 2
 	ILibGraph2* libgraph = GetLibGraph2();
@@ -54,14 +54,44 @@ g txt_quit = "ytujytytjy";
         case evt_type::evtRefresh:  //Raffraichissement de l'affichage (tout redessiner)
           //Utiliser éventuellement les fonctions libgraph->beginPaint() / libgraph->endPaint() pour activer le backbuffer
             libgraph->beginPaint();
+            //------------------------Affichage-du-cadre
+            libgraph->setPen(noir, 4.0f, LibGraph2::pen_DashStyles::Solid);
+            libgraph->drawLine(CPoint{ 100,100 }, CPoint{ 100,1000 });              //Cadre gauche
+            libgraph->drawLine(CPoint{ 100,1000 }, CPoint{ 1800,1000 });            //Cadre bas
+            //------------------------Affichage-des-flèches
+            libgraph->drawLine(CPoint{ 100,100 }, CPoint{ 75,125 });                //Flèche haut-gauche
+            libgraph->drawLine(CPoint{ 100,100 }, CPoint{ 125,125 });               //Flèche haut-droite
+            libgraph->drawLine(CPoint{ 1800,1000 }, CPoint{ 1775, 1025 });          //Flèche droite-bas
+            libgraph->drawLine(CPoint{ 1800,1000 }, CPoint{ 1775, 975 });           //Flèche droite-haut
 
-            libgraph->setPen(noir, 5.0f, LibGraph2::pen_DashStyles::Solid);
-            libgraph->setSolidBrush(blanc);
-            libgraph->drawRectangle(beute);
+            //libgraph->setFont("Segoe UI", 40, font_styles::FontStyleRegular);
+            //libgraph->setSolidBrush(noir);
+            //libgraph->drawString(CString{"OUI"}, pos_txt);
 
-            //libgraph->setFont("Consolas" , 20 , font_styles::FontStyleRegular);
+            //------------------------Affichage-des-intervalles
+            for (float i = 1; i <= 8; i++)
+            {
+                libgraph->drawLine(CPoint{ 90 ,1000 - (inter * i) }, CPoint{ 110, 1000 - (inter * i) });
+            }
+            for (float i = 1; i <= 16; i++)
+            {
+                libgraph->drawLine(CPoint{ 100 + (inter * i), 990 }, CPoint{ 100 + (inter * i), 1010 });
+                //libgraph->drawString(annee, CPoint{100 + (inter * i), 990});
+                //annee += 1;
+            }
+
+            libgraph->drawEllipse(point);
+            //point = { CPoint{300,400}, taille_point };
+            //libgraph->drawEllipse(point);
+            //libgraph->setPen(noir, 2.0f, LibGraph2::pen_DashStyles::Solid);
+            libgraph->drawLine(pos_point, CPoint{ 300,400 });
+
+            //libgraph->drawLine(CPoint{ 90, 1010 }, CPoint{ 110, 990 });
+
+            //Affichage du texte de fermeture
+            /*libgraph->setFont("Consolas" , 20 , font_styles::FontStyleRegular);
             libgraph->setSolidBrush(noir);
-            //libgraph->drawString(txt_quit, pos_txt);
+            libgraph->drawString(txt_quit, pos_txt);*/
 
             libgraph->endPaint();
             break;
