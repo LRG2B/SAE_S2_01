@@ -17,15 +17,16 @@ public:
 	void affiche_arbre_postfixe()const;
 	void liberer_arbre();
 	size_t nbelem() const;
-	float max()const;
-	float min()const;
+	Arbre max()const;
+	Arbre min()const;
 	size_t hauteur()const;
 	size_t nbfeuille()const;
 	bool non_degenere()const;
 	CelluleArbre* recherche_ptr(float cle)const;  
 	void supprime_cellule(float cle);
+	float get_temp_mois_annee(int annee);
 
-public : 
-	float somme_temp(); //question1
-	CelluleArbre* recherche_annee(int annee);
+	
+
 };
+

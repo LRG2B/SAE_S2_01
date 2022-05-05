@@ -78,7 +78,7 @@ std::map<int, std::pair<float, float> > SAE_Datas_Heat::parseContentFile(std::st
 
 void SAE_Datas_Heat::convertDataInList()
 {
-    size_t maxStation = _vRawData[0].size(); // nombre de stations du premier mois enregistré //18//
+    size_t maxStation = _vRawData[0].size(); // nombre de stations du premier mois enregistré
     // maxStation va diminuer au fur et à mesure que des stations vont arrêter leurs relevés
     // on skippera les nouvelles stations car elles non plus ne seront pas complètes
     size_t monthRecorded = nbMonths();
@@ -118,10 +118,8 @@ void SAE_Datas_Heat::convertDataInList()
 
         // Toutes les stations qui n'ont pas été visitées ont arrêté d'émettre et doivent être supprimées
         for (size_t iStation = 0; iStation < maxStation;/* RIEN on incrémente seulement si la station a été visitée */) {
-            if (!vbIsVisited[iStation]) 
-            {
-                for (size_t i = iStation + 1; i < maxStation; i++) 
-                { // on décale toutes les stations de 1 cran à gauche
+            if (!vbIsVisited[iStation]) {
+                for (size_t i = iStation + 1; i < maxStation; i++) { // on décale toutes les stations de 1 cran à gauche
                     vbIsVisited[i - 1] = vbIsVisited[i];
                     vIDstation[i - 1] = vIDstation[i];
                     vStationTmoy[i - 1] = vStationTmoy[i];
@@ -143,16 +141,19 @@ void SAE_Datas_Heat::convertDataInList()
     // vous devez maintenant creer la structure arborescente 
     // Parcours des maxStation stations, creation des cellules de la liste et des 12 arbres associes a chaque cellule
     // la creation d un arbre se fera via la fonction calculDeltaT que vous devez egalement completer
-    for (size_t iStation = 0; iStation < maxStation; iStation++)
-    {
-        CelluleStation nv(vIDstation[iStation]);
-        for (size_t mois = 0; mois < 12; mois++)
-        {
-            nv.tab_arbres[mois] = calculDeltaT(mois, vStationTmoy[iStation], vStationTsigma[iStation]);
+
+    // Parcours des maxStations stations
+    for (size_t iStation = 0; iStation < maxStation; iStation++) {
+        // Creation des cellules de la liste
+        CelluleStation Sta(vIDstation[iStation]);
+        // Creation des 12 arbres pour chaque mois
+        for (size_t month = 0; month < 12; month++) {
+            // Association des arbres a la cellule station
+            Sta.tab_arbres[month] = calculDeltaT(month, vStationTmoy[iStation], vStationTsigma[iStation]);
         }
-        _lListeStations.ajoute_cellule_en_tete(nv);
+        // Ajout de la cellule dans la liste bi-directionnelle
+        _lListeStations.ajoute_cellule_en_tete(Sta);
     }
-    
 
   
 }
@@ -162,17 +163,20 @@ Arbre SAE_Datas_Heat::calculDeltaT(size_t mois, const std::vector<float>& vTmoyS
     Arbre a;
     int annee = 1992; // annee de départ
   
-    // TO DO 
-    for (size_t an = 1; an < vTmoyStation.size() + 1; an++)
-    {
-        //calcul du delta entre deux années
-        float delta = abs(vTmoyStation[an - 1] - vTmoyStation[an]);
-        //creation de la cellule arbre
-        CelluleArbre cel(delta, an, vTmoyStation[an], vTSigmaStation[an]);
-        //insertion de la cellule arbre dans l'arbre
-        a.ajoute_cellule(cel);
+    // Creation d'un compteur qui commence au mois + 12 pour etre a l'annee suivante
+    size_t cpt = mois + 12;
+    // Parcours jusqu'a que le compteur depasse la limite d'un des deux vecteur
+    while (cpt < vTmoyStation.size() || cpt < vTSigmaStation.size()) {
+        // Incrementation de l'annee avant les instructions car nous partons de annee + 1
+        annee++;
+        // Creation des cellules arbres avec le calcul du DeltaT
+        CelluleArbre Arb((vTmoyStation[cpt] - vTmoyStation[cpt - 12]), annee - 1, vTmoyStation[cpt - 12], vTSigmaStation[cpt - 12]);
+        // Ajout de la cellule a l'arbre
+        a.ajoute_cellule(Arb);
+        // Incrementation du compteur
+        cpt += 12;
     }
-
+    // Ce programme ne comptabilise pas la derniere annee (2022) car il est impossible de calculer le DeltaT pour cet annee
 
     return a;
 }

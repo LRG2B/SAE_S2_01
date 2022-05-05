@@ -1,8 +1,7 @@
 #pragma once
 #include "CelluleStation.h"
 
-class ListeStation
-{
+class ListeStation{
 	CelluleStation* _pListDeb = nullptr;
 	CelluleStation* _pListFin = nullptr;
 public:
@@ -13,6 +12,7 @@ public:
 	void affiche_liste()const;
 	void affiche_liste_endroit()const;
 	void liberer_liste();
+	float get_temp_annee(int annee);
 	size_t nbelem() const;
 	CelluleStation* recherche_ptr(int cle)const;  
 	void supprime_cellule(int cle);
@@ -20,3 +20,4 @@ public:
 	
 
 };
+

@@ -11,5 +11,5 @@ struct CelluleArbre {
 
 	CelluleArbre(float deltaT = 0.0, int an = 0, float tMoy = 0, float tSigma = 0, CelluleArbre* pFilsG = nullptr, CelluleArbre* pFilsD = nullptr) 
 		: _deltaT{ deltaT }, _annee{ an }, _tempMois{ tMoy }, _tSigmaMois{ tSigma }, _pFilsG{ pFilsG }, _pFilsD{ pFilsD } {}
-
 };
+
