@@ -11,38 +11,23 @@
 #include "Arbre.h"
 #include <vector>
 
+//! \brief Donne la somme de tout les Delta T
 //! \param ab
 //! \return float
 float somme_deltaT(Arbre ab);
 
+//! \brief Retourne la somme de toute les temperature
 //! \param ab
 //! \return float
 float sommeTemp(Arbre ab);
 
+//! \brief La somme des temperatures de l'ensemble des stations sur un mois donne ? 
 //! \param lB, nameMonth
 //! \return void
 void displaySommeTemp(ListeStation& lB, std::vector<std::string>& nameMonth);
 
+//! \brief Donne la moyenne des temperature
 //! \param ab
 //! \return float
 float moyTemp(Arbre ab);
 
-//! \param lB, nameMonth
-//! \return void
-void displayMoyTemp(ListeStation& lB, std::vector<std::string>& nameMonth);
-
-//! \param lB, mois
-//! \return void
-void displayMoyTempSta(ListeStation& lB, int mois);
-
-//! \param ab1, ab2, ab3
-//! \return Arbre
-Arbre globalWarning(Arbre ab1, Arbre ab2, Arbre ab3);
-
-//! \param lB
-//! \return void
-void displayGlobalWarningSeasons(ListeStation& lB);
-
-//! \param ab
-//! \return void
-void displayDelta(Arbre ab);
