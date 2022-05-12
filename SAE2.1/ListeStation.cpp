@@ -1,11 +1,13 @@
+//! \file ListeStation.cpp
+//! \brief 
+//! \date 12/05/2022
+//! \version 1.0
+
 #pragma once
 #include "ListeStation.h"
-
 #include <iostream>
 #include <vector>
 #include <string>
-
-
 
 // Cette fonction est un peu a modifier par rapport a la partie 1 car il y a un tableau maintenant en plus
 void ListeStation::ajoute_cellule_en_tete(const CelluleStation& cel) {
@@ -57,9 +59,6 @@ void ListeStation::affiche_liste_endroit() const {
 	std::cout << "\x1B[0m" << std::endl;
 }
 
-
-
-
 size_t ListeStation::nbelem() const
 {
 	CelluleStation* p = _pListDeb;
@@ -70,7 +69,6 @@ size_t ListeStation::nbelem() const
 	}
 	return nb;
 }
-
 
 // renvoie le ptr vers cellule avec cle. Si cle absente renvoie null
 CelluleStation* ListeStation::recherche_ptr(int cle)const
@@ -86,7 +84,6 @@ CelluleStation* ListeStation::recherche_ptr(int cle)const
 		else return nullptr;
 	}
 }
-
 
 void ListeStation::supprime_cellule(int cle)
 {
@@ -121,7 +118,6 @@ void ListeStation::supprime_cellule(int cle)
 	}
 }
 
-
 void ListeStation::liberer_liste()
 {
 	CelluleStation* p = _pListDeb;
@@ -131,7 +127,6 @@ void ListeStation::liberer_liste()
 		delete p;
 	}
 }
-
 
 float ListeStation::get_temp_annee(int annee)
 {
@@ -144,9 +139,3 @@ float ListeStation::get_temp_annee(int annee)
 	}
 	return temp / this->nbelem();
 }
-
-
-
-
-
-

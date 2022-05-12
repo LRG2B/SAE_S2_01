@@ -1,4 +1,9 @@
-﻿#include <iostream> // std::cout
+﻿//! \file mainLectureData.cpp
+//! \brief 
+//! \date 12/05/2022
+//! \version 1.0
+
+#include <iostream> // std::cout
 #include "SAE_Datas_Heat.h"
 #include "Traitement.h"
 #define LIBGRAPH2_LEVEL 4  
@@ -7,7 +12,6 @@
 #include <tchar.h>
 
 using namespace LibGraph2;
-
 
 int APIENTRY _tWinMain(HINSTANCE hInstance,
 	HINSTANCE hPrevInstance,
@@ -108,4 +112,3 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
     ReleaseLibGraph2();
     return 0;
 }
-

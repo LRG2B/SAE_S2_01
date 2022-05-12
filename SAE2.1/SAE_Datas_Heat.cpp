@@ -1,5 +1,9 @@
-#include "SAE_Datas_Heat.h"
+//! \file SAE_Datas_Heat.cpp
+//! \brief 
+//! \date 12/05/2022
+//! \version 1.0
 
+#include "SAE_Datas_Heat.h"
 #include <iostream> // std::cerr
 #include <algorithm>    // std::find
 #include <numeric> // std::accumulate
@@ -180,13 +184,6 @@ Arbre SAE_Datas_Heat::calculDeltaT(size_t mois, const std::vector<float>& vTmoyS
 
     return a;
 }
-
-
-
-
-////////////////////////////////////////////////////////////////////////////////////////////////
-//                           Public Functions
-////////////////////////////////////////////////////////////////////////////////////////////////
 
 size_t SAE_Datas_Heat::nbMonths() const
 {

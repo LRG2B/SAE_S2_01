@@ -1,3 +1,8 @@
+//! \file Arbre.cpp
+//! \brief 
+//! \date 12/05/2022
+//! \version 1.0
+
 #include "Arbre.h"
 #include <iostream>
 
@@ -25,8 +30,6 @@ void Arbre::ajoute_cellule(const CelluleArbre& cel) {
 	}
 }
 
-
-
 void Arbre::affiche_arbre_prefixe()const {
 	if (_pArbre) {
 		Arbre arbregauche(this->_pArbre->_pFilsG);
@@ -37,7 +40,6 @@ void Arbre::affiche_arbre_prefixe()const {
 		arbredroit.affiche_arbre_prefixe();
 	}
 }
-
 
 void Arbre::affiche_arbre_infixe()const {
 	if (_pArbre) {
@@ -50,8 +52,6 @@ void Arbre::affiche_arbre_infixe()const {
 	}
 }
 
-
-
 void Arbre::affiche_arbre_postfixe()const {
 	if (_pArbre) {
 		Arbre arbregauche(this->_pArbre->_pFilsG);
@@ -62,7 +62,6 @@ void Arbre::affiche_arbre_postfixe()const {
 		std::cout << _pArbre->_deltaT;
 	}
 }
-
 
 void Arbre::liberer_arbre() {
 	if (_pArbre) {
@@ -80,7 +79,6 @@ void Arbre::liberer_arbre() {
 	}
 	_pArbre = nullptr;
 }
-
 
 Arbre Arbre::max()const {
 	if (_pArbre) {
@@ -113,7 +111,6 @@ size_t Arbre::hauteur()const {
 	return 0;
 }
 
-
 size_t Arbre::nbelem() const {
 	if (_pArbre) {
 		Arbre arbregauche(this->_pArbre->_pFilsG);
@@ -122,7 +119,6 @@ size_t Arbre::nbelem() const {
 	}
 	return 0;
 }
-
 
 size_t Arbre::nbfeuille()const
 {
@@ -142,7 +138,6 @@ size_t Arbre::nbfeuille()const
 	}
 }
 
-
 bool Arbre::non_degenere()const {
 	if (_pArbre == nullptr) 
 		return false;
@@ -161,7 +156,6 @@ bool Arbre::non_degenere()const {
 		}
 	}
 }
-
 
 CelluleArbre* Arbre::recherche_ptr(float cle)const {  
 	CelluleArbre* p = nullptr;
@@ -252,7 +246,6 @@ void Arbre::supprime_cellule(float cle) {
 	
 }
 
-
 float Arbre::get_temp_mois_annee(int annee)
 {
 	if (_pArbre)
@@ -271,4 +264,3 @@ float Arbre::get_temp_mois_annee(int annee)
 		}
 	}
 }
-
